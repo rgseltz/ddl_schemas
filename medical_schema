@@ -1,0 +1,23 @@
+doctors_table
+id SERIAL PRIMARY KEY
+name text NOT NULL
+patient_id INTEGER REFERENCES
+location TEXT 
+contact INTEGER
+
+patients_table
+id SERIAL PRIMARY KEY
+name TEXT NOT NULL
+doctor_id INTEGER REFERENCES
+address TEXT 
+contact INTEGER
+
+diseases_table
+id SERIAL PRIME KEY
+name TEXT NOT NULL
+description TEXT
+patient_id INTEGER REFERENCES
+
+
+
+

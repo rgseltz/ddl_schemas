@@ -1,0 +1,24 @@
+users_table
+id
+username
+contact
+
+posts_table
+id
+item
+price
+category id
+region id
+contact id
+
+region_table
+id
+name
+
+categories_table
+id 
+name
+
+
+
+
