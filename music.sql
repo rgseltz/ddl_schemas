@@ -25,11 +25,21 @@ CREATE TABLE producers (
 CREATE TABLE songs (
   id SERIAL PRIMARY KEY,
   title TEXT NOT NULL,
+  album_id INTEGER REFERENCES albums(id) ON DELETE SET NULL,
   duration_in_seconds INTEGER NOT NULL,
-  release_date DATE NOT NULL,
-  artist_id INTEGER REFERENCES artists(id) ON DELETE CASCADE,
-  album_id INTEGER REFERENCES albums(id) ON DELETE CASCADE,
-  producer_id INTEGER REFERENCES producers(id) ON DELETE CASCADE
+  release_date DATE NOT NULL
+);
+
+CREATE TABLE songs_artists (
+  id SERIAL PRIMARY KEY,
+  song_id INTEGER REFERENCES songs(id) ON DELETE CASCADE,
+  artist_id INTEGER REFERENCES artists(id) ON DELETE CASCADE
+);
+
+CREATE TABLE songs_producers (
+  id SERIAL PRIMARY KEY,
+  song_id INTEGER REFERENCES songs(id) ON DELETE CASCADE,
+  producer_id INTEGER REFERENCES producers(id) ON DELETE SET NULL
 );
 
 INSERT INTO artists (name)
@@ -44,18 +54,52 @@ INSERT INTO producers (name)
 VALUES
 ('Dust Brothers'), ('Stephen Lironi'), ('Roy Thomas Barker'), ('Walter Afanasieff'), ('Benjamin Rice'), ('Rick Parashar'), ('Al Shux'), ('Max Martin'), ('Cirkuit'), ('Shellback'), ('Benny Blanco'), ('The Matrix'), ('Darkchild');
 
--- INSERT INTO songs (title, duration_in_seconds, release_date, artist_id, album_id, producer_id)
--- VALUES
--- ('MMMBop', 238,'04-15-199', {1}, 1, {1, 2}),
---  ('Bohemian Rhapsody',355, '10-31-1975', {2}, 2, {3}), 
---  ('One Sweet Day',282, '11-14-1995', {3,4}, 3, {4}), 
---  ('Shallow', 216, '09-27-2018', {5,6}, 4, {5}), 
---  ('How You Remind Me', 223, '08-21-2001', {7}, 5, {6}), 
---  ('New York State of Mind', 276, '10-20-2009', {8,9}, 6, {7}), 
---  ('Dark Horse', 215, '12-17-2013', {10, 11}, 7, {8,9}), 
---  ('Moves Like Jagger', 201, '06-21-2011', {12, 13}, 8, {10, 11}), 
---  ('Complicated', 244, '05-14-2002', {14}, 9, {12}), 
---  ('Say My Name', 240, '11-07-1999', {15}, 10, {13});  
+INSERT INTO songs (title, album_id, duration_in_seconds, release_date)
+VALUES
+('MMMBop', 1,238,'04-15-199'),
+ ('Bohemian Rhapsody', 2,355, '10-31-1975'), 
+ ('One Sweet Day', 3,282, '11-14-1995'), 
+ ('Shallow', 4,216, '09-27-2018'), 
+ ('How You Remind Me', 5,223, '08-21-2001'), 
+ ('New York State of Mind', 6,276, '10-20-2009'), 
+ ('Dark Horse', 7,215, '12-17-2013'), 
+ ('Moves Like Jagger', 8,201, '06-21-2011'), 
+ ('Complicated', 9,244, '05-14-2002'), 
+ ('Say My Name', 10,240, '11-07-1999');
+
+ INSERT INTO songs_artists (song_id, artist_id)
+ VALUES
+ (1, 1),
+ (2, 2),
+ (3, 3),
+ (3, 4),
+ (4, 5),
+ (4, 6),
+ (5, 7),
+ (6, 8),
+ (6, 9),
+ (7, 10),
+ (7, 11),
+ (8, 12),
+ (8, 13),
+ (9, 14),
+ (10, 15); 
+
+INSERT INTO songs_producers (song_id, producer_id)
+ VALUES
+ (1, 1),
+ (1,2),
+ (2,3),
+ (3, 4),
+ (4,5),
+ (5,6),
+ (6, 7),
+ (7, 8),
+ (7, 9), 
+ (8, 10),
+ (8, 11),
+ (9, 12),
+ (10, 13);
 
 
 -- INSERT INTO songs
