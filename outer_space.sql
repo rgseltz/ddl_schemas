@@ -10,27 +10,27 @@ CREATE DATABASE outer_space;
 CREATE TABLE galaxies
 (
   id SERIAL PRIMARY KEY,
-  name TEXT NOT NULL
+  galaxy_name TEXT NOT NULL
 );
 
 CREATE TABLE moons
 (
   id SERIAL PRIMARY KEY,
-  name TEXT NOT NULL,
+  moon_name TEXT NOT NULL,
   galaxy_id INTEGER REFERENCES galaxies(id) ON DELETE SET NULL
 );
 
 CREATE TABLE stars
 (
   id SERIAL PRIMARY KEY,
-  name TEXT NOT NULL,
+  star_name TEXT NOT NULL,
   galaxy_id INTEGER REFERENCES galaxies(id) ON DELETE SET NULL
 );
 
 CREATE TABLE planets
 (
   id SERIAL PRIMARY KEY,
-  name TEXT NOT NULL,
+  planet_name TEXT NOT NULL,
   orbital_period_in_years FLOAT NOT NULL,
   star_id INTEGER REFERENCES stars(id) ON DELETE CASCADE,
   galaxy_id INTEGER REFERENCES galaxies(id) ON DELETE CASCADE,
@@ -62,26 +62,26 @@ CREATE TABLE planets_moons
 --   ('Gliese 876 b', 0.23, 'Gliese 876', 'Milky Way', '{}');
 
   INSERT INTO galaxies
-  (name)
+  (galaxy_name)
   VALUES
   ('Milky Way');
 
   INSERT INTO moons
-  (name, galaxy_id)
+  (moon_name, galaxy_id)
   VALUES
   ('The Moon', 1),
   ('Phobos', 1),
   ('Deimos', 1);
 
   INSERT INTO stars
-  (name, galaxy_id)
+  (star_name, galaxy_id)
   VALUES
   ('The Sun', 1),
   ('Proxima Centauri', 1),
   ('Gliese 876', 1);
 
   INSERT INTO planets
-  (name, orbital_period_in_years, galaxy_id)
+  (planet_name, orbital_period_in_years, galaxy_id)
   VALUES
   ('Earth', 1 , 1),
   ('Mars', 1.88, 1),
